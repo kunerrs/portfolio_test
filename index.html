@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Developer Portfolio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800" x-data="portfolio()">
+    <div class="flex min-h-screen">
+        <!-- Sidebar - 1/4 of the page -->
+        <aside class="w-1/4 bg-gradient-to-b from-blue-600 to-blue-800 text-white p-8 fixed h-full overflow-y-auto">
+            <div class="mb-8">
+                <div class="w-32 h-32 bg-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-20 h-20 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold text-center mb-2">John Doe</h1>
+                <p class="text-center text-blue-200">Web Developer</p>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="space-y-4">
+                <a href="#about"
+                   @click.prevent="activeSection = 'about'"
+                   :class="activeSection === 'about' ? 'bg-blue-700' : 'hover:bg-blue-700'"
+                   class="block py-2 px-4 rounded transition-colors">
+                    About Me
+                </a>
+                <a href="#experience"
+                   @click.prevent="activeSection = 'experience'"
+                   :class="activeSection === 'experience' ? 'bg-blue-700' : 'hover:bg-blue-700'"
+                   class="block py-2 px-4 rounded transition-colors">
+                    Experience
+                </a>
+                <a href="#skills"
+                   @click.prevent="activeSection = 'skills'"
+                   :class="activeSection === 'skills' ? 'bg-blue-700' : 'hover:bg-blue-700'"
+                   class="block py-2 px-4 rounded transition-colors">
+                    Skills
+                </a>
+                <a href="#projects"
+                   @click.prevent="activeSection = 'projects'"
+                   :class="activeSection === 'projects' ? 'bg-blue-700' : 'hover:bg-blue-700'"
+                   class="block py-2 px-4 rounded transition-colors">
+                    Projects
+                </a>
+                <a href="#contact"
+                   @click.prevent="activeSection = 'contact'"
+                   :class="activeSection === 'contact' ? 'bg-blue-700' : 'hover:bg-blue-700'"
+                   class="block py-2 px-4 rounded transition-colors">
+                    Contact
+                </a>
+            </nav>
+
+            <!-- Social Links -->
+            <div class="mt-12 pt-8 border-t border-blue-500">
+                <p class="text-sm text-blue-200 mb-4">Connect with me:</p>
+                <div class="flex space-x-4 justify-center">
+                    <a href="#" class="hover:text-blue-200 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="hover:text-blue-200 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="hover:text-blue-200 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content - 3/4 of the page -->
+        <main class="w-3/4 ml-auto p-12">
+            <!-- About Section -->
+            <section x-show="activeSection === 'about'" x-transition class="mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-blue-600">About Me</h2>
+                <div class="bg-white rounded-lg shadow-md p-8">
+                    <p class="text-lg leading-relaxed mb-4">
+                        Hello! I'm a passionate web developer with 2 years of professional experience in building modern web applications.
+                        I specialize in creating responsive, user-friendly interfaces and robust backend solutions.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-4">
+                        Currently, I work as a Web Developer at a dynamic company where I collaborate with cross-functional teams
+                        to deliver high-quality web solutions that meet business objectives and exceed user expectations.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        I'm constantly learning and staying updated with the latest web technologies and best practices to
+                        ensure I deliver cutting-edge solutions.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section x-show="activeSection === 'experience'" x-transition class="mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-blue-600">Experience</h2>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800">Web Developer</h3>
+                                <p class="text-blue-600 font-medium">Tech Company Inc.</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 px-4 py-1 rounded-full text-sm font-medium">
+                                2022 - Present
+                            </span>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Developed and maintained responsive web applications using modern JavaScript frameworks</li>
+                            <li>Collaborated with designers and backend developers to implement new features</li>
+                            <li>Optimized application performance, reducing load times by 40%</li>
+                            <li>Participated in code reviews and contributed to team best practices</li>
+                            <li>Mentored junior developers and conducted knowledge-sharing sessions</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800">Junior Web Developer</h3>
+                                <p class="text-blue-600 font-medium">Startup Solutions</p>
+                            </div>
+                            <span class="bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-sm font-medium">
+                                2023 - 2022
+                            </span>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Built responsive websites using HTML, CSS, and JavaScript</li>
+                            <li>Implemented RESTful APIs and integrated third-party services</li>
+                            <li>Fixed bugs and improved existing codebase</li>
+                            <li>Learned modern web development practices and tools</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section x-show="activeSection === 'skills'" x-transition class="mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-blue-600">Skills</h2>
+                <div class="bg-white rounded-lg shadow-md p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Frontend</h3>
+                            <div class="space-y-3">
+                                <template x-for="skill in frontendSkills" :key="skill.name">
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-gray-700" x-text="skill.name"></span>
+                                            <span class="text-gray-600" x-text="skill.level + '%'"></span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-500"
+                                                 :style="'width: ' + skill.level + '%'"></div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Backend</h3>
+                            <div class="space-y-3">
+                                <template x-for="skill in backendSkills" :key="skill.name">
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-gray-700" x-text="skill.name"></span>
+                                            <span class="text-gray-600" x-text="skill.level + '%'"></span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-500"
+                                                 :style="'width: ' + skill.level + '%'"></div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Tools & Technologies</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="tool in tools" :key="tool">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm" x-text="tool"></span>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Soft Skills</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="skill in softSkills" :key="skill">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm" x-text="skill"></span>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section x-show="activeSection === 'projects'" x-transition class="mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-blue-600">Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <template x-for="project in projects" :key="project.title">
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                                <svg class="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2" x-text="project.title"></h3>
+                                <p class="text-gray-600 mb-4" x-text="project.description"></p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <template x-for="tech in project.technologies" :key="tech">
+                                        <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs" x-text="tech"></span>
+                                    </template>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">View Project →</a>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section x-show="activeSection === 'contact'" x-transition class="mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-blue-600">Contact Me</h2>
+                <div class="bg-white rounded-lg shadow-md p-8">
+                    <p class="text-lg mb-6">
+                        I'm always interested in hearing about new opportunities and projects. Feel free to reach out!
+                    </p>
+
+                    <form @submit.prevent="handleSubmit" class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="name">Name</label>
+                            <input type="text" id="name" x-model="formData.name"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                   required>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
+                            <input type="email" id="email" x-model="formData.email"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                   required>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="message">Message</label>
+                            <textarea id="message" x-model="formData.message" rows="5"
+                                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                      required></textarea>
+                        </div>
+
+                        <button type="submit"
+                                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                            Send Message
+                        </button>
+
+                        <p x-show="submitted" x-transition class="text-green-600 font-medium mt-4">
+                            Thank you for your message! I'll get back to you soon.
+                        </p>
+                    </form>
+
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <h3 class="text-xl font-semibold mb-4">Other Ways to Reach Me</h3>
+                        <div class="space-y-2">
+                            <p class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                john.doe@email.com
+                            </p>
+                            <p class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                +1 (555) 123-4567
+                            </p>
+                            <p class="flex items-center text-gray-700">
+                                <svg class="w-5 h-5 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                New York, USA
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function portfolio() {
+            return {
+                activeSection: 'about',
+                submitted: false,
+                formData: {
+                    name: '',
+                    email: '',
+                    message: ''
+                },
+                frontendSkills: [
+                    { name: 'HTML/CSS', level: 95 },
+                    { name: 'JavaScript', level: 90 },
+                    { name: 'React', level: 85 },
+                    { name: 'Vue.js', level: 80 },
+                    { name: 'Tailwind CSS', level: 90 }
+                ],
+                backendSkills: [
+                    { name: 'Node.js', level: 85 },
+                    { name: 'Express', level: 80 },
+                    { name: 'PHP', level: 75 },
+                    { name: 'MySQL', level: 80 },
+                    { name: 'MongoDB', level: 75 }
+                ],
+                tools: ['Git', 'GitHub', 'VS Code', 'Webpack', 'npm', 'Docker', 'Figma', 'Postman'],
+                softSkills: ['Team Collaboration', 'Problem Solving', 'Communication', 'Time Management', 'Adaptability'],
+                projects: [
+                    {
+                        title: 'E-Commerce Platform',
+                        description: 'A full-featured online shopping platform with user authentication, product management, and payment integration.',
+                        technologies: ['React', 'Node.js', 'MongoDB', 'Stripe']
+                    },
+                    {
+                        title: 'Task Management App',
+                        description: 'Collaborative task management application with real-time updates and team features.',
+                        technologies: ['Vue.js', 'Firebase', 'Tailwind CSS']
+                    },
+                    {
+                        title: 'Portfolio CMS',
+                        description: 'Content management system for creating and managing portfolio websites with drag-and-drop interface.',
+                        technologies: ['React', 'Express', 'PostgreSQL']
+                    },
+                    {
+                        title: 'Weather Dashboard',
+                        description: 'Interactive weather dashboard with location-based forecasts and historical data visualization.',
+                        technologies: ['JavaScript', 'Chart.js', 'Weather API']
+                    }
+                ],
+                handleSubmit() {
+                    // In a real application, you would send this data to a server
+                    console.log('Form submitted:', this.formData);
+                    this.submitted = true;
+                    setTimeout(() => {
+                        this.submitted = false;
+                        this.formData = { name: '', email: '', message: '' };
+                    }, 3000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
